@@ -1,55 +1,96 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable, useColorScheme } from 'react-native';
+import { FontAwesome } from "@expo/vector-icons";
+import { BottomTabBar } from "@react-navigation/bottom-tabs";
+import { BlurView } from "expo-blur";
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform, View, Text } from "react-native";
 
-import Colors from '../../constants/Colors';
-
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
     <Tabs
+      initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-      }}>
+        tabBarStyle:
+          Platform.OS === "ios"
+            && {
+                backgroundColor: "transparent",
+              },
+        headerShown: false,
+      }}
+      tabBar={(props) =>
+        Platform.OS === "ios" ? (
+          <BlurView
+            style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}
+            intensity={95}
+          >
+            <BottomTabBar {...props} />
+          </BlurView>
+        ) : (
+          <BottomTabBar {...props} />
+        )
+      }
+    >
       <Tabs.Screen
-        name="index"
+        name="home"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+          href: "/home",
+          title: "",
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: 17,
+                backgroundColor: "transparent",
+              }}
+            >
+              <TabBarIcon name="home" color={color} size={24} />
+              <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5 }}>
+                Home
+              </Text>
+            </View>
           ),
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="account"
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "",
+          headerShown: true,
+          href: {
+            pathname: "/account",
+          },
+          tabBarIcon: ({ color }) => (
+            <View
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                marginTop: 17,
+                backgroundColor: "transparent",
+              }}
+            >
+              <TabBarIcon name="user" color={color} size={24} />
+              <Text style={{ marginTop: 5, fontSize: 10, opacity: 0.5 }}>
+                Account
+              </Text>
+            </View>
+          ),
         }}
       />
     </Tabs>
+  );
+}
+
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color: string;
+  size?: number;
+}) {
+  return (
+    <FontAwesome
+      size={props.size || 26}
+      style={{ marginBottom: -3 }}
+      {...props}
+    />
   );
 }
