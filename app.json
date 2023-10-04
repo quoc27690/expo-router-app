@@ -1,10 +1,14 @@
 {
   "expo": {
     "name": "expo-router-app",
+    "scheme": "expo-router-app",
     "slug": "expo-router-app",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
+    ],
+    "plugins": [
+      "expo-router"
     ]
   }
 }
