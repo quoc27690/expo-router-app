@@ -1,27 +1,20 @@
 import { Stack } from "expo-router";
 import { AuthProvider } from "../context/AuthProvider";
-import { Platform } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export default function RootLayout() {
-  return (
-    <AuthProvider>
-      <Stack>
-        <Stack.Screen
-          name="(tabs)"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="other"
-          options={{
-            title: "",
-            headerShown: true,
-            headerTransparent: Platform.OS === "ios",
-            headerBlurEffect: "regular",
-          }}
-        />
-      </Stack>
-    </AuthProvider>
-  );
+	return (
+		<SafeAreaProvider>
+			<AuthProvider>
+				<Stack>
+					<Stack.Screen
+						name="(tabs)"
+						options={{
+							headerShown: false,
+						}}
+					/>
+				</Stack>
+			</AuthProvider>
+		</SafeAreaProvider>
+	);
 }

@@ -56,7 +56,7 @@ export default function TabsLayout() {
         name="account"
         options={{
           title: "",
-          headerShown: true,
+          headerShown: false,
           href: {
             pathname: "/account",
           },
