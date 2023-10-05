@@ -4,7 +4,7 @@ import {
 	TouchableOpacity,
 	FlatList,
 	StyleSheet,
-	StatusBar,
+	SafeAreaView,
 } from "react-native";
 
 const DATA = [
@@ -40,6 +40,26 @@ const DATA = [
 		id: "08",
 		title: "group 08",
 	},
+	{
+		id: "09",
+		title: "group 09",
+	},
+	{
+		id: "10",
+		title: "group 10",
+	},
+	{
+		id: "11",
+		title: "group 11",
+	},
+	{
+		id: "12",
+		title: "group 12",
+	},
+	{
+		id: "13",
+		title: "group 13",
+	},
 ];
 
 type ItemProps = { title: string; id: string };
@@ -50,40 +70,39 @@ export default function Home() {
 	const Item = (props: { item: ItemProps }) => {
 		const { title, id } = props.item;
 		return (
-      <TouchableOpacity
-      onPress={() => onPressGroup(id)}
-      style={styles.item}
+			<TouchableOpacity
+				onPress={() => onPressGroup(id)}
+				style={styles.item}
 			>
 				<Text style={styles.title}>{title}</Text>
 			</TouchableOpacity>
 		);
 	};
-  
-  const onPressGroup = (id: string) => {
-    router.push(`/group/${id}/detail`);
-  };
+
+	const onPressGroup = (id: string) => {
+		router.push(`/group/${id}/detail`);
+	};
 
 	return (
-      <FlatList
-        contentContainerStyle={styles.list}
-        data={DATA}
-        renderItem={({ item }) => <Item item={item} />}
-        keyExtractor={(item) => item.id}
-      />
+		<SafeAreaView>
+			<FlatList
+        contentContainerStyle={{ paddingBottom: 100 }}
+				data={DATA}
+				renderItem={({ item }) => <Item item={item} />}
+				keyExtractor={(item) => item.id}
+			/>
+		</SafeAreaView>
 	);
 }
 
 const styles = StyleSheet.create({
-	list: {
-		paddingTop: StatusBar.currentHeight || 0,
-	},
 	item: {
 		backgroundColor: "#f9c2ff",
-		padding: 20,
-		marginVertical: 8,
+		padding: 10,
+		marginTop: 16,
 		marginHorizontal: 16,
 	},
 	title: {
-		fontSize: 32,
+		fontSize: 20,
 	},
 });
