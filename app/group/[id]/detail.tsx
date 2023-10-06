@@ -1,5 +1,6 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import Button from "../../../components/Button";
 
 export default function Detail() {
 	const { id } = useLocalSearchParams();
@@ -9,22 +10,12 @@ export default function Detail() {
 			style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
 		>
 			<Text>Group {id}</Text>
-			<TouchableOpacity style={styles.btn} onPress={() => router.push(`/group/${id}/setting`)}>
-				<Text style={styles.txt}>Setting</Text>
-			</TouchableOpacity>
+			<Button
+				txt="Setting"
+				onPress={() => router.push(`/group/${id}/setting`)}
+			/>
 		</View>
 	);
 }
 
-const styles = StyleSheet.create({
-	btn: {
-		paddingVertical: 10,
-		paddingHorizontal: 20,
-		backgroundColor: "tomato",
-		marginTop: 10,
-		borderRadius: 10,
-	},
-	txt: {
-		color: "white",
-	},
-});
+const styles = StyleSheet.create({});
